@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Recommendations</title>
+    <style>
+        body {
+            background-image: url('/static/images/bg2.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            color: #E6C17B; /* Champagne Gold color for most text */
+        }
+
+        h1 {
+            color: white; /* White color for the title */
+            font-weight: bold;
+            font-family: 'Open Sans', sans-serif;
+            padding: 10px;
+            text-align: center;
+            margin-top: 30px; /* Adjust margin to move the title down from the top */
+        }
+
+        table {
+            margin-top: 30px; /* Adjust margin to separate the title and recommendations */
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #4CAF50; /* Green color for the button */
+            color: white; /* White color for the button text */
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049; /* Darker shade on hover for the button */
+        }
+    </style>
+</head>
+<body>
+    <h1>Anime Recommendations for {{ anime_title|capitalize }}</h1>
+
+    {% if recommendations.empty %}
+        <p>No recommendations found for '{{ anime_title|capitalize }}'</p>
+        <p>Sorry! I'm not familiar with this anime, so I can't recommend you any similar anime.</p>
+    {% else %}
+        <table border="1">
+            <tr>
+                <th>Title</th>
+                <th>Rating</th>
+                <th>Type</th>
+                <th>Genre</th>
+            </tr>
+            {% for index, row in recommendations.iterrows() %}
+            <tr>
+                <td>{{ row['title'] }}</td>
+                <td>{{ row['rating'] }}</td>
+                <td>{{ row['type'] }}</td>
+                <td>{{ row['genre'] }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endif %}
+
+    <button onclick="window.location.href='/'">Search for Another Anime</button>
+</body>
+</html>
